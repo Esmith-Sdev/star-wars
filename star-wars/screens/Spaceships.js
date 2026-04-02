@@ -1,73 +1,38 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
+import { useEffect, useState } from "react";
+
 import styles from "../styles";
 import Row from "../components/Row";
 import Column from "../components/Column";
 import Box from "../components/Box";
 
-export default function Spaceships() {
+export default function Films() {
+  const [starships, setStarships] = useState([]);
+
+  useEffect(() => {
+    fetchStarships();
+  }, []);
+
+  async function fetchStarships() {
+    try {
+      const res = await fetch("https://www.swapi.tech/api/starships");
+      const data = await res.json();
+      console.log(data);
+      setStarships(data.results);
+    } catch (err) {
+      console.log("Fetch Starships Failed", err);
+    }
+  }
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Spaceships</Text>
-      <Row>
-        <Column>
-          <Box>
-            <Text>Millennium Falcon</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>X-Wing Fighter</Text>
-          </Box>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <Box>
-            <Text>TIE Fighter</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>Star Destroyer</Text>
-          </Box>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <Box>
-            <Text>Death Star</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>Slave I</Text>
-          </Box>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <Box>
-            <Text>Y-Wing</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>A-Wing</Text>
-          </Box>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <Box>
-            <Text>Executor</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>Razor Crest</Text>
-          </Box>
-        </Column>
-      </Row>
+      <Text style={styles.headerText}>Starships</Text>
+      <FlatList
+        data={starships}
+        keyExtractor={(item) => item.uid}
+        renderItem={({ item }) => (
+          <Text style={styles.boxText}>{item.name}</Text>
+        )}
+      />
     </View>
   );
 }

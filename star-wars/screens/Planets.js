@@ -1,73 +1,36 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
+import { useState, useEffect } from "react";
 import styles from "../styles";
 import Row from "../components/Row";
 import Column from "../components/Column";
 import Box from "../components/Box";
 
 export default function Planets() {
+  const [planets, setPlanets] = useState([]);
+
+  useEffect(() => {
+    fetchPlanets();
+  }, []);
+  async function fetchPlanets() {
+    try {
+      const res = await fetch("https://www.swapi.tech/api/planets");
+      const data = await res.json();
+      console.log(data);
+      setPlanets(data.results);
+    } catch (err) {
+      console.log("Failed to Fetch Planets", err);
+    }
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Planets</Text>
-      <Row>
-        <Column>
-          <Box>
-            <Text>Tatooine</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>Coruscant</Text>
-          </Box>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <Box>
-            <Text>Naboo</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>Hoth</Text>
-          </Box>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <Box>
-            <Text>Endor</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>Mustafar</Text>
-          </Box>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <Box>
-            <Text>Kamino</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>Geonosis</Text>
-          </Box>
-        </Column>
-      </Row>
-      <Row>
-        <Column>
-          <Box>
-            <Text>Dagobah</Text>
-          </Box>
-        </Column>
-        <Column>
-          <Box>
-            <Text>Alderaan</Text>
-          </Box>
-        </Column>
-      </Row>
+      <FlatList
+        data={planets}
+        keyExtractor={(item) => item.uid}
+        renderItem={({ item }) => (
+          <Text style={styles.boxText}>{item.name}</Text>
+        )}
+      />
     </View>
   );
 }

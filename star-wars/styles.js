@@ -42,7 +42,6 @@ export default StyleSheet.create({
     position: "absolute",
   },
   boxText: {
-    color: "#f0ece1",
     fontWeight: "bold",
     textAlign: "center",
   },
@@ -66,6 +65,6 @@ export default StyleSheet.create({
   headerText: {
     fontSize: 20,
     fontStyle: "bold",
-    paddingTop: 20,
+    paddingVertical: 20,
   },
 });
