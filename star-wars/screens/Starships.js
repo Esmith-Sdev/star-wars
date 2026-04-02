@@ -6,7 +6,7 @@ import Row from "../components/Row";
 import Column from "../components/Column";
 import Box from "../components/Box";
 
-export default function Films() {
+export default function Starships() {
   const [starships, setStarships] = useState([]);
 
   useEffect(() => {
