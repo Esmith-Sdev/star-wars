@@ -7,11 +7,8 @@ export default function Input(props) {
   return (
     <View style={styles.textInputContainer}>
             
-      <Row>
-        <Text style={styles.textInputLabel}>{props.label}</Text>
-
-        <TextInput style={styles.textInput} {...props} />
-      </Row>
+      <Text style={styles.textInputLabel}>{props.label}</Text>
+      <TextInput style={styles.textInput} {...props} />
           
     </View>
   );
