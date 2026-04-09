@@ -5,10 +5,13 @@ import styles from "../styles";
 import Row from "../components/Row";
 import Column from "../components/Column";
 import Box from "../components/Box";
-
+import ConfirmationModal from "../components/ConfirmationModal";
+import Input from "../components/Input";
 export default function Starships() {
   const [starships, setStarships] = useState([]);
-
+  const [submittedText, setSubmittedText] = useState("");
+  const [changedText, setChangedText] = useState("");
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     fetchStarships();
   }, []);
@@ -26,6 +29,28 @@ export default function Starships() {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Starships</Text>
+      <ConfirmationModal
+        visible={showModal}
+        onPressConfirm={() => setShowModal(false)}
+        onPressCancel={() => setShowModal(false)}
+      >
+        <Text>{submittedText}</Text>
+      </ConfirmationModal>
+
+      <Input
+        label="Search:"
+        onChangeText={(e) => {
+          setChangedText(e);
+        }}
+        onSubmitEditing={(e) => {
+          setSubmittedText(changedText);
+          setShowModal(true);
+        }}
+        onFocus={() => {
+          setChangedText("");
+          setSubmittedText("");
+        }}
+      />
       <FlatList
         data={starships}
         keyExtractor={(item) => item.uid}

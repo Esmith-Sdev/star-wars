@@ -4,10 +4,13 @@ import styles from "../styles";
 import Row from "../components/Row";
 import Column from "../components/Column";
 import Box from "../components/Box";
-
+import ConfirmationModal from "../components/ConfirmationModal";
+import Input from "../components/Input";
 export default function Planets() {
   const [planets, setPlanets] = useState([]);
-
+  const [submittedText, setSubmittedText] = useState("");
+  const [changedText, setChangedText] = useState("");
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     fetchPlanets();
   }, []);
@@ -24,6 +27,28 @@ export default function Planets() {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Planets</Text>
+      <ConfirmationModal
+        visible={showModal}
+        onPressConfirm={() => setShowModal(false)}
+        onPressCancel={() => setShowModal(false)}
+      >
+        <Text>{submittedText}</Text>
+      </ConfirmationModal>
+
+      <Input
+        label="Search:"
+        onChangeText={(e) => {
+          setChangedText(e);
+        }}
+        onSubmitEditing={(e) => {
+          setSubmittedText(changedText);
+          setShowModal(true);
+        }}
+        onFocus={() => {
+          setChangedText("");
+          setSubmittedText("");
+        }}
+      />
       <FlatList
         data={planets}
         keyExtractor={(item) => item.uid}
