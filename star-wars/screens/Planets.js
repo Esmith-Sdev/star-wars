@@ -36,7 +36,6 @@ export default function Planets() {
       </ConfirmationModal>
 
       <Input
-        label="Search:"
         onChangeText={(e) => {
           setChangedText(e);
         }}

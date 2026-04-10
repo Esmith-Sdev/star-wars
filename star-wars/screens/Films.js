@@ -36,7 +36,6 @@ export default function Films() {
       </ConfirmationModal>
       <Text style={styles.headerText}>Films</Text>
       <Input
-        label="Search:"
         onChangeText={(e) => {
           setChangedText(e);
         }}

@@ -47,18 +47,17 @@ export default StyleSheet.create({
   },
 
   row: {
-    flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
-    alignSelf: "stretch",
+    justifyContent: "center",
+    alignItems: "center",
+
     gap: 1,
   },
 
   column: {
-    flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "center",
     alignSelf: "stretch",
   },
   textContainer: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
@@ -70,6 +69,11 @@ export default StyleSheet.create({
   textInput: {
     borderColor: "#000",
     borderWidth: 1,
+    width: 200,
+    minHeight: 30,
+    paddingHorizontal: 10,
+    paddingVertical: 1,
+    fontSize: 14,
   },
   modalContainer: {
     flex: 1,
@@ -99,5 +103,14 @@ export default StyleSheet.create({
     margin: 5,
     color: "slategrey",
     fontWeight: 700,
+  },
+  textInputContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    marginBottom: 20,
+  },
+  textInputLabel: {
+    fontSize: 16,
   },
 });

@@ -38,7 +38,6 @@ export default function Starships() {
       </ConfirmationModal>
 
       <Input
-        label="Search:"
         onChangeText={(e) => {
           setChangedText(e);
         }}
