@@ -6,6 +6,7 @@ import Column from "../components/Column";
 import Box from "../components/Box";
 import ConfirmationModal from "../components/ConfirmationModal";
 import Input from "../components/Input";
+import Swipeable from "../components/Swipeable";
 export default function Planets() {
   const [planets, setPlanets] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
@@ -52,7 +53,13 @@ export default function Planets() {
         data={planets}
         keyExtractor={(item) => item.uid}
         renderItem={({ item }) => (
-          <Text style={styles.boxText}>{item.name}</Text>
+          <Swipeable
+            name={item.name}
+            onSwipe={() => {
+              setSubmittedText(item.name);
+              setShowModal(true);
+            }}
+          />
         )}
       />
     </View>

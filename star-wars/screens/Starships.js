@@ -2,9 +2,7 @@ import { View, Text, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 
 import styles from "../styles";
-import Row from "../components/Row";
-import Column from "../components/Column";
-import Box from "../components/Box";
+import Swipeable from "../components/Swipeable";
 import ConfirmationModal from "../components/ConfirmationModal";
 import Input from "../components/Input";
 export default function Starships() {
@@ -54,7 +52,13 @@ export default function Starships() {
         data={starships}
         keyExtractor={(item) => item.uid}
         renderItem={({ item }) => (
-          <Text style={styles.boxText}>{item.name}</Text>
+          <Swipeable
+            name={item.name}
+            onSwipe={() => {
+              setSubmittedText(item.name);
+              setShowModal(true);
+            }}
+          />
         )}
       />
     </View>

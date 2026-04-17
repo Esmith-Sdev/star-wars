@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TextInput } from "react-native";
+import { View, Text, FlatList, TextInput, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import styles from "../styles";
 import Row from "../components/Row";
@@ -7,6 +7,7 @@ import Box from "../components/Box";
 import ConfirmationModal from "../components/ConfirmationModal";
 import PropTypes from "prop-types";
 import Input from "../components/Input";
+import Swipeable from "../components/Swipeable";
 export default function Films() {
   const [films, setFilms] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
@@ -48,11 +49,18 @@ export default function Films() {
           setSubmittedText("");
         }}
       />
+
       <FlatList
         data={films}
         keyExtractor={(item) => item.uid}
         renderItem={({ item }) => (
-          <Text style={styles.boxText}>{item.properties.title}</Text>
+          <Swipeable
+            name={item.properties.title}
+            onSwipe={() => {
+              setSubmittedText(item.properties.title);
+              setShowModal(true);
+            }}
+          />
         )}
       />
     </View>

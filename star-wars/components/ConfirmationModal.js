@@ -10,16 +10,15 @@ export default function ConfirmationModal(props) {
         <View style={styles.modalInner}>
                     
           <Column>
-            <Text style={styles.modalText}>You Searched For:</Text>
             <Text style={styles.textInputModal}>{props.children}</Text>
           </Column>
                     
           <Text style={styles.modalButton} onPress={props.onPressConfirm}>
-                        Yep           
+                        Confirm           
           </Text>
                     
           <Text style={styles.modalButton} onPress={props.onPressCancel}>
-                        Nope           
+                        Back           
           </Text>
                   
         </View>

@@ -3,16 +3,20 @@ import { StatusBar } from "expo-status-bar";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: "ghostwhite",
+    justifyContent: "space-between",
     alignItems: "center",
-    justifyContent: "space-around",
+    backgroundColor: "ghostwhite",
     ...Platform.select({
       ios: { paddingTop: 40 },
       android: { paddingTop: StatusBar.currentHeight },
     }),
   },
-
+  searchBox: {
+    borderRadius: 4,
+    borderColor: "#e5703d",
+    padding: 5,
+    borderWidth: 1,
+  },
   box: {
     height: 100,
     width: 180,
@@ -65,11 +69,13 @@ export default StyleSheet.create({
     fontSize: 20,
     fontStyle: "bold",
     paddingVertical: 20,
+    fontWeight: 700,
   },
   textInput: {
-    borderColor: "#000",
+    borderColor: "#e5703d",
     borderWidth: 1,
-    width: 200,
+    width: 300,
+    borderRadius: 5,
     minHeight: 30,
     paddingHorizontal: 10,
     paddingVertical: 1,
@@ -112,5 +118,33 @@ export default StyleSheet.create({
   },
   textInputLabel: {
     fontSize: 16,
+  },
+
+  swipeContainer: {
+    flex: 1,
+    flexDirection: "row",
+    width: 200,
+    height: 30,
+    marginVertical: 25,
+  },
+
+  swipeItem: {
+    width: 200,
+    height: 30,
+    backgroundColor: "azure",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderRadius: 4,
+    borderColor: "#e5703d",
+  },
+
+  swipeItemText: {
+    textAlign: "center",
+    color: "#000",
+  },
+
+  swipeBlank: {
+    width: 200,
+    height: 30,
   },
 });
