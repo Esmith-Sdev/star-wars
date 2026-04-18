@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import styles from "../styles";
 import Row from "../components/Row";
@@ -7,6 +7,8 @@ import Box from "../components/Box";
 import ConfirmationModal from "../components/ConfirmationModal";
 import Input from "../components/Input";
 import Swipeable from "../components/Swipeable";
+import LazyImage from "../components/LazyImage";
+
 export default function Planets() {
   const [planets, setPlanets] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
@@ -27,6 +29,12 @@ export default function Planets() {
   }
   return (
     <View style={styles.container}>
+      <LazyImage
+        source={{
+          uri: "https://i.imgur.com/WT0i7ns.png",
+        }}
+        style={{ width: "100%", height: 300 }}
+      />
       <Text style={styles.headerText}>Planets</Text>
       <ConfirmationModal
         visible={showModal}
@@ -35,7 +43,6 @@ export default function Planets() {
       >
         <Text>{submittedText}</Text>
       </ConfirmationModal>
-
       <Input
         onChangeText={(e) => {
           setChangedText(e);
@@ -51,6 +58,7 @@ export default function Planets() {
       />
       <FlatList
         data={planets}
+        style={{ height: 300 }}
         keyExtractor={(item) => item.uid}
         renderItem={({ item }) => (
           <Swipeable

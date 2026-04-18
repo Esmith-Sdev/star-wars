@@ -7,6 +7,7 @@ import Animated, {
   useSharedValue,
   withSpring,
   withTiming,
+  runOnJS,
 } from "react-native-reanimated";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 export default function Swipeable({ onSwipe, name }) {
@@ -41,8 +42,8 @@ export default function Swipeable({ onSwipe, name }) {
     })
 
     .onFinalize(() => {
-      if (offset.value <= 200) {
-        onSwipe();
+      if (offset.value >= 200) {
+        runOnJS(onSwipe)();
       }
       offset.value = withSpring(0);
       pressed.value = false;

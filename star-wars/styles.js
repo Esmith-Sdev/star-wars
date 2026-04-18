@@ -68,7 +68,7 @@ export default StyleSheet.create({
   headerText: {
     fontSize: 20,
     fontStyle: "bold",
-    paddingVertical: 20,
+    paddingTop: 10,
     fontWeight: 700,
   },
   textInput: {
@@ -114,7 +114,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    marginBottom: 20,
+    marginBottom: 5,
   },
   textInputLabel: {
     fontSize: 16,
@@ -125,7 +125,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     width: 200,
     height: 30,
-    marginVertical: 25,
+    marginVertical: 15,
   },
 
   swipeItem: {

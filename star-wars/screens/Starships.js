@@ -1,10 +1,11 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
-
+import LazyImage from "../components/LazyImage";
 import styles from "../styles";
 import Swipeable from "../components/Swipeable";
 import ConfirmationModal from "../components/ConfirmationModal";
 import Input from "../components/Input";
+
 export default function Starships() {
   const [starships, setStarships] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
@@ -26,6 +27,12 @@ export default function Starships() {
   }
   return (
     <View style={styles.container}>
+      <LazyImage
+        source={{
+          uri: "https://i.imgur.com/WT0i7ns.png",
+        }}
+        style={{ width: "100%", height: 300 }}
+      />
       <Text style={styles.headerText}>Starships</Text>
       <ConfirmationModal
         visible={showModal}
@@ -34,7 +41,6 @@ export default function Starships() {
       >
         <Text>{submittedText}</Text>
       </ConfirmationModal>
-
       <Input
         onChangeText={(e) => {
           setChangedText(e);

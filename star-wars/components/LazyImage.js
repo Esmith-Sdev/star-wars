@@ -4,14 +4,28 @@ import PropTypes from "prop-types";
 
 import { View, Image } from "react-native";
 
-export default function LazyImage({ source }) {
+export default function LazyImage({ source, style }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <View>
-      {!loaded && <Image source={require("../assets/placeholder.png")} />}
+    <View
+      style={{
+        paddingVertical: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      {!loaded && (
+        <Image style={style} source={require("../assets/placeholder.png")} />
+      )}
 
-      <Image source={source} onLoad={() => setLoaded(true)} />
+      <Image
+        resizeMode="fill"
+        style={style}
+        source={source}
+        onLoad={() => setLoaded(true)}
+      />
     </View>
   );
 }

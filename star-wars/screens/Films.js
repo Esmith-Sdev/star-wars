@@ -38,8 +38,9 @@ export default function Films() {
       </ConfirmationModal>
       <LazyImage
         source={{
-          uri: "https://github.com/Esmith-Sdev/star-wars/tree/images/assets/star-wars.png",
+          uri: "https://i.imgur.com/WT0i7ns.png",
         }}
+        style={{ width: "100%", height: 300 }}
       />
       <Text style={styles.headerText}>Films</Text>
       <Input
@@ -55,8 +56,8 @@ export default function Films() {
           setSubmittedText("");
         }}
       />
-
       <FlatList
+        style={{ height: 100 }}
         data={films}
         keyExtractor={(item) => item.uid}
         renderItem={({ item }) => (
