@@ -8,6 +8,7 @@ import ConfirmationModal from "../components/ConfirmationModal";
 import PropTypes from "prop-types";
 import Input from "../components/Input";
 import Swipeable from "../components/Swipeable";
+import LazyImage from "../components/LazyImage";
 export default function Films() {
   const [films, setFilms] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
@@ -35,6 +36,11 @@ export default function Films() {
       >
         <Text>{submittedText}</Text>
       </ConfirmationModal>
+      <LazyImage
+        source={{
+          uri: "https://github.com/Esmith-Sdev/star-wars/tree/images/assets/star-wars.png",
+        }}
+      />
       <Text style={styles.headerText}>Films</Text>
       <Input
         onChangeText={(e) => {
