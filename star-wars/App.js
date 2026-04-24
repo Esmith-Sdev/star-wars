@@ -3,10 +3,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Planets from "./screens/Planets";
 import Starships from "./screens/Starships";
 import Films from "./screens/Films";
+import { useState, useEffect } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Platform } from "react-native";
+import { Platform, Text, StyleSheet, View } from "react-native";
+import NetInfo from "@react-native-community/netinfo";
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+
 function TabNavigator() {
   return (
     <Tab.Navigator>
@@ -28,9 +31,44 @@ function DrawerNavigator() {
 }
 
 export default function App() {
-  return (
+  const connectedMap = {
+    none: "Not available offline",
+    unknown: "Not avaible offline",
+    wifi: "Connected",
+    cellular: "Connected",
+  };
+  const [connected, setConnected] = useState("");
+  useEffect(() => {
+    function onNetworkChange(connection) {
+      setConnected(connectedMap[connection.type]);
+    }
+    const unsubscribe = NetInfo.addEventListener(onNetworkChange);
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  return connected !== "Connected" ? (
+    <View style={styles.center}>
+      <Text style={styles.connectedText}>
+        {connected || "Checking connection..."}
+      </Text>
+    </View>
+  ) : (
     <NavigationContainer>
       {Platform.OS === "ios" ? <TabNavigator /> : <DrawerNavigator />}
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  connectedText: {
+    textAlign: "center",
+    fontSize: 25,
+    width: "100%",
+  },
+});

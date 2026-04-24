@@ -9,11 +9,13 @@ import PropTypes from "prop-types";
 import Input from "../components/Input";
 import Swipeable from "../components/Swipeable";
 import LazyImage from "../components/LazyImage";
+
 export default function Films() {
   const [films, setFilms] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
   const [changedText, setChangedText] = useState("");
   const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     fetchFilms();
   }, []);
