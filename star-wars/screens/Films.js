@@ -9,13 +9,13 @@ import PropTypes from "prop-types";
 import Input from "../components/Input";
 import Swipeable from "../components/Swipeable";
 import LazyImage from "../components/LazyImage";
-
+import { useNavigation } from "@react-navigation/native";
 export default function Films() {
   const [films, setFilms] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
   const [changedText, setChangedText] = useState("");
   const [showModal, setShowModal] = useState(false);
-
+  const navigation = useNavigation();
   useEffect(() => {
     fetchFilms();
   }, []);
@@ -30,7 +30,7 @@ export default function Films() {
     }
   }
   return (
-    <View style={styles.container}>
+    <View style={styles.screen}>
       <ConfirmationModal
         visible={showModal}
         onPressConfirm={() => setShowModal(false)}
@@ -66,8 +66,13 @@ export default function Films() {
           <Swipeable
             name={item.properties.title}
             onSwipe={() => {
-              setSubmittedText(item.properties.title);
-              setShowModal(true);
+              navigation.navigate("Details", {
+                title: item.properties.title,
+                episode: item.properties.episode_id,
+                director: item.properties.director,
+                producer: item.properties.producer,
+                releaseDate: item.properties.release_date,
+              });
             }}
           />
         )}

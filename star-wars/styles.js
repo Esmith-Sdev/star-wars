@@ -1,7 +1,8 @@
 import { StyleSheet, Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { cloneElement } from "react";
 export default StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
@@ -9,11 +10,50 @@ export default StyleSheet.create({
     ...Platform.select({
       ios: { paddingTop: 40 },
       android: { paddingTop: StatusBar.currentHeight },
+      backgroundColor: "rgb(229, 112, 61)",
     }),
+  },
+  detailsScreen: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "ghostwhite",
+    ...Platform.select({
+      ios: { paddingTop: 40 },
+      android: { paddingTop: StatusBar.currentHeight },
+      backgroundColor: "rgb(229, 112, 61)",
+    }),
+  },
+  container: {
+    borderRadius: 4,
+    padding: 20,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 15,
+  },
+  innerContainer: {
+    backgroundColor: "rgb(255, 225, 212)",
+    padding: 20,
+    borderWidth: 1,
+    borderColor: "rgb(229, 112, 61)",
+    borderRadius: 2,
+    alignItems: "center",
+  },
+  detailsContainer: {
+    borderRadius: 4,
+    padding: 20,
+
+    gap: 15,
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  detailsText: {
+    fontSize: 12,
   },
   searchBox: {
     borderRadius: 4,
-    borderColor: "#e5703d",
+    borderColor: "rgb(229, 112, 61)",
     padding: 5,
     borderWidth: 1,
   },
@@ -71,6 +111,12 @@ export default StyleSheet.create({
     paddingTop: 10,
     fontWeight: 700,
   },
+  detailsHeader: {
+    fontSize: 20,
+    fontStyle: "bold",
+    marginBottom: 20,
+    fontWeight: 700,
+  },
   textInput: {
     borderColor: "#e5703d",
     borderWidth: 1,
@@ -103,6 +149,20 @@ export default StyleSheet.create({
     fontWeight: "bold",
     margin: 5,
     color: "slategrey",
+  },
+  backButton: {
+    width: 150,
+    paddingHorizontal: 8,
+    paddingVertical: 10,
+    backgroundColor: "#e5703d",
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  backButtonText: {
+    fontSize: 15,
+    textAlign: "center",
+    color: "#fff",
+    fontWeight: 700,
   },
   textInputModal: {
     fontSize: 16,

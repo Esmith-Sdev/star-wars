@@ -12,17 +12,7 @@ import Animated, {
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 export default function Swipeable({ onSwipe, name }) {
   const pressed = useSharedValue(false);
-  function onScroll(e) {
-    e.nativeEvent.contentOffset.x >= 200 && onSwipe();
-  }
-  const scrollProps = {
-    horizontal: true,
-    pagingEnabled: true,
-    showsHorizontalScrollIndicator: false,
-    showsVerticalScrollIndicator: false,
-    scrollEventThrottle: 10,
-    onScroll,
-  };
+
   const offset = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => ({
     transform: [
@@ -38,11 +28,13 @@ export default function Swipeable({ onSwipe, name }) {
     })
 
     .onChange((event) => {
-      offset.value = event.translationX;
+      if (event.translationX < 0) {
+        offset.value = event.translationX;
+      }
     })
 
     .onFinalize(() => {
-      if (offset.value >= 200) {
+      if (offset.value <= -150) {
         runOnJS(onSwipe)();
       }
       offset.value = withSpring(0);
@@ -50,15 +42,13 @@ export default function Swipeable({ onSwipe, name }) {
     });
   return (
     <View style={styles.swipeContainer}>
-      <ScrollView {...scrollProps}>
-        <Animated.View entering={SlideInLeft}>
-          <GestureDetector gesture={pan}>
-            <Animated.View style={[styles.swipeItem, animatedStyles]}>
-              <Text style={styles.swipeItemText}>{name}</Text>
-            </Animated.View>
-          </GestureDetector>
-        </Animated.View>
-      </ScrollView>
+      <Animated.View entering={SlideInLeft}>
+        <GestureDetector gesture={pan}>
+          <Animated.View style={[styles.swipeItem, animatedStyles]}>
+            <Text style={styles.swipeItemText}>{name}</Text>
+          </Animated.View>
+        </GestureDetector>
+      </Animated.View>
     </View>
   );
 }

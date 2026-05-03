@@ -26,7 +26,7 @@ export default function Starships() {
     }
   }
   return (
-    <View style={styles.container}>
+    <View style={styles.screen}>
       <LazyImage
         source={{
           uri: "https://i.imgur.com/WT0i7ns.png",
