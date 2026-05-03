@@ -22,7 +22,7 @@ function TabNavigator() {
         name="Details"
         component={Details}
         options={{
-          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
         }}
       />
     </Tab.Navigator>
@@ -49,12 +49,18 @@ function DrawerNavigator() {
 export default function App() {
   const connectedMap = {
     none: "Not available offline",
-    unknown: "Not avaible offline",
+    unknown: "Connected",
     wifi: "Connected",
     cellular: "Connected",
+    ethernet: "Connected",
   };
+
   const [connected, setConnected] = useState("");
   useEffect(() => {
+    if (Platform.OS === "web") {
+      setConnected("Connected");
+      return;
+    }
     function onNetworkChange(connection) {
       setConnected(connectedMap[connection.type]);
     }
