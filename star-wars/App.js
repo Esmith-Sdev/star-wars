@@ -18,7 +18,13 @@ function TabNavigator() {
       <Tab.Screen name="Planets" component={Planets} />
       <Tab.Screen name="Starships" component={Starships} />
       <Tab.Screen name="Films" component={Films} />
-      <Tab.Screen name="Details" component={Details} />
+      <Tab.Screen
+        name="Details"
+        component={Details}
+        options={{
+          tabBarButton: () => null,
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -29,7 +35,13 @@ function DrawerNavigator() {
       <Drawer.Screen name="Planets" component={Planets} />
       <Drawer.Screen name="Starships" component={Starships} />
       <Drawer.Screen name="Films" component={Films} />
-      <Drawer.Screen name="Details" component={Details} />
+      <Drawer.Screen
+        name="Details"
+        component={Details}
+        options={{
+          drawerItemStyle: { display: "none" },
+        }}
+      />
     </Drawer.Navigator>
   );
 }

@@ -39,6 +39,7 @@ export default StyleSheet.create({
     borderColor: "rgb(229, 112, 61)",
     borderRadius: 2,
     alignItems: "center",
+    width: 300,
   },
   detailsContainer: {
     borderRadius: 4,

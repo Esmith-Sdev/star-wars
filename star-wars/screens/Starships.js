@@ -5,24 +5,28 @@ import styles from "../styles";
 import Swipeable from "../components/Swipeable";
 import ConfirmationModal from "../components/ConfirmationModal";
 import Input from "../components/Input";
-
+import { ActivityIndicator } from "react-native";
 export default function Starships() {
   const [starships, setStarships] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
   const [changedText, setChangedText] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState();
   useEffect(() => {
     fetchStarships();
   }, []);
 
   async function fetchStarships() {
     try {
+      setLoading(true);
       const res = await fetch("https://www.swapi.tech/api/starships");
       const data = await res.json();
       console.log(data);
       setStarships(data.results);
     } catch (err) {
       console.log("Fetch Starships Failed", err);
+    } finally {
+      setLoading(false);
     }
   }
   return (
@@ -54,19 +58,27 @@ export default function Starships() {
           setSubmittedText("");
         }}
       />
-      <FlatList
-        data={starships}
-        keyExtractor={(item) => item.uid}
-        renderItem={({ item }) => (
-          <Swipeable
-            name={item.name}
-            onSwipe={() => {
-              setSubmittedText(item.name);
-              setShowModal(true);
-            }}
-          />
-        )}
-      />
+      {!loading ? (
+        <FlatList
+          data={starships}
+          keyExtractor={(item) => item.uid}
+          renderItem={({ item }) => (
+            <Swipeable
+              name={item.name}
+              onSwipe={() => {
+                setSubmittedText(item.name);
+                setShowModal(true);
+              }}
+            />
+          )}
+        />
+      ) : (
+        <View style={styles.screen}>
+          <View style={styles.container}>
+            <ActivityIndicator size="large" animating={loading} />
+          </View>
+        </View>
+      )}
     </View>
   );
 }

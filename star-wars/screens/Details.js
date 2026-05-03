@@ -2,8 +2,16 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "expo-router";
 import styles from "../styles";
 export default function Details({ route }) {
-  const { title, episode, producer, director, releaseDate } = route.params;
+  const { title, episode, producer, director, releaseDate } =
+    route.params || "";
   const navigation = useNavigation();
+  if (!route.params) {
+    return (
+      <View style={styles.detailsScreen}>
+        <Text style={styles.detailsHeader}>No Film Selected</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.detailsScreen}>
       <View style={styles.container}>

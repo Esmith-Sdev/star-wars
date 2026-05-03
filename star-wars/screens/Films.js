@@ -10,23 +10,28 @@ import Input from "../components/Input";
 import Swipeable from "../components/Swipeable";
 import LazyImage from "../components/LazyImage";
 import { useNavigation } from "@react-navigation/native";
+import { ActivityIndicator } from "react-native";
 export default function Films() {
   const [films, setFilms] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
   const [changedText, setChangedText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const navigation = useNavigation();
+  const [loading, setLoading] = useState();
   useEffect(() => {
     fetchFilms();
   }, []);
   async function fetchFilms() {
     try {
+      setLoading(true);
       const res = await fetch("https://www.swapi.tech/api/films");
       const data = await res.json();
       console.log(data);
       setFilms(data.result);
     } catch (err) {
       console.log("Failed to Fetch Films", err);
+    } finally {
+      setLoading(false);
     }
   }
   return (
@@ -58,25 +63,33 @@ export default function Films() {
           setSubmittedText("");
         }}
       />
-      <FlatList
-        style={{ height: 100 }}
-        data={films}
-        keyExtractor={(item) => item.uid}
-        renderItem={({ item }) => (
-          <Swipeable
-            name={item.properties.title}
-            onSwipe={() => {
-              navigation.navigate("Details", {
-                title: item.properties.title,
-                episode: item.properties.episode_id,
-                director: item.properties.director,
-                producer: item.properties.producer,
-                releaseDate: item.properties.release_date,
-              });
-            }}
-          />
-        )}
-      />
+      {!loading ? (
+        <FlatList
+          style={{ height: 100 }}
+          data={films}
+          keyExtractor={(item) => item.uid}
+          renderItem={({ item }) => (
+            <Swipeable
+              name={item.properties.title}
+              onSwipe={() => {
+                navigation.navigate("Details", {
+                  title: item.properties.title,
+                  episode: item.properties.episode_id,
+                  director: item.properties.director,
+                  producer: item.properties.producer,
+                  releaseDate: item.properties.release_date,
+                });
+              }}
+            />
+          )}
+        />
+      ) : (
+        <View style={styles.screen}>
+          <View style={styles.container}>
+            <ActivityIndicator size="large" animating={loading} />
+          </View>
+        </View>
+      )}
     </View>
   );
 }
