@@ -1,6 +1,5 @@
 import { StyleSheet, Platform } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { cloneElement } from "react";
 export default StyleSheet.create({
   screen: {
     flex: 1,
