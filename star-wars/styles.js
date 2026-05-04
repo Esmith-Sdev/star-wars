@@ -3,17 +3,6 @@ import { StatusBar } from "expo-status-bar";
 export default StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "ghostwhite",
-    ...Platform.select({
-      ios: { paddingTop: 40 },
-      android: { paddingTop: StatusBar.currentHeight },
-      backgroundColor: "rgb(229, 112, 61)",
-    }),
-  },
-  detailsScreen: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "ghostwhite",
@@ -23,6 +12,7 @@ export default StyleSheet.create({
       backgroundColor: "rgb(229, 112, 61)",
     }),
   },
+
   container: {
     borderRadius: 4,
     padding: 20,
@@ -56,6 +46,8 @@ export default StyleSheet.create({
     borderColor: "rgb(229, 112, 61)",
     padding: 5,
     borderWidth: 1,
+    width: "70%",
+    marginBottom: 20,
   },
   box: {
     height: 100,
@@ -67,6 +59,15 @@ export default StyleSheet.create({
     borderColor: "#080808",
     backgroundColor: "#e5703d",
   },
+  list: {
+    height: 300,
+    borderRadius: 5,
+    borderColor: "#e5703d",
+    borderWidth: 2,
+    paddingVertical: 5,
+    paddingHorizontal: 35,
+  },
+
   planetBox: {
     height: 100,
     width: "80%",
@@ -185,7 +186,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     width: 200,
     height: 30,
-    marginVertical: 15,
+    margin: 15,
   },
 
   swipeItem: {

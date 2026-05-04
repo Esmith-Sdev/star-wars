@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TextInput, ScrollView } from "react-native";
+import { View, Text, FlatList, TextInput } from "react-native";
 import { useState, useEffect } from "react";
 import styles from "../styles";
 import Row from "../components/Row";
@@ -11,6 +11,7 @@ import Swipeable from "../components/Swipeable";
 import LazyImage from "../components/LazyImage";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 export default function Films() {
   const [films, setFilms] = useState([]);
   const [submittedText, setSubmittedText] = useState("");
@@ -34,62 +35,73 @@ export default function Films() {
       setLoading(false);
     }
   }
+  const filteredFilms = films.filter((film) =>
+    film.properties.title
+      .toLowerCase()
+      .includes((changedText || "").toLowerCase()),
+  );
   return (
-    <View style={styles.screen}>
-      <ConfirmationModal
-        visible={showModal}
-        onPressConfirm={() => setShowModal(false)}
-        onPressCancel={() => setShowModal(false)}
-      >
-        <Text>{submittedText}</Text>
-      </ConfirmationModal>
-      <LazyImage
-        source={{
-          uri: "https://i.imgur.com/WT0i7ns.png",
-        }}
-        style={{ width: "100%", height: 300 }}
-      />
-      <Text style={styles.headerText}>Films</Text>
-      <Input
-        onChangeText={(e) => {
-          setChangedText(e);
-        }}
-        onSubmitEditing={(e) => {
-          setSubmittedText(changedText);
-          setShowModal(true);
-        }}
-        onFocus={() => {
-          setChangedText("");
-          setSubmittedText("");
-        }}
-      />
-      {!loading ? (
-        <FlatList
-          style={{ height: 100 }}
-          data={films}
-          keyExtractor={(item) => item.uid}
-          renderItem={({ item }) => (
-            <Swipeable
-              name={item.properties.title}
-              onSwipe={() => {
-                navigation.navigate("Details", {
-                  title: item.properties.title,
-                  episode: item.properties.episode_id,
-                  director: item.properties.director,
-                  producer: item.properties.producer,
-                  releaseDate: item.properties.release_date,
-                });
-              }}
-            />
-          )}
+    <KeyboardAwareScrollView
+      style={{ flex: 1 }}
+      enableOnAndroid
+      extraScrollHeight={200}
+      nestedScrollEnabled={true}
+    >
+      <View style={styles.screen}>
+        <ConfirmationModal
+          visible={showModal}
+          onPressConfirm={() => setShowModal(false)}
+          onPressCancel={() => setShowModal(false)}
+        >
+          <Text>{submittedText}</Text>
+        </ConfirmationModal>
+        <LazyImage
+          source={{
+            uri: "https://i.imgur.com/WT0i7ns.png",
+          }}
+          style={{ width: "100%", height: 300 }}
         />
-      ) : (
-        <View style={styles.screen}>
-          <View style={styles.container}>
-            <ActivityIndicator size="large" animating={loading} />
+        <Text style={styles.headerText}>Films</Text>
+        <Input
+          onChangeText={(text) => setChangedText(text)}
+          onSubmitEditing={(e) => {
+            setSubmittedText(changedText);
+            setShowModal(true);
+          }}
+          onFocus={() => {
+            setChangedText("");
+            setSubmittedText("");
+          }}
+          style={styles.searchBox}
+        />
+        {!loading ? (
+          <FlatList
+            data={filteredFilms}
+            style={styles.list}
+            keyExtractor={(item) => item.uid}
+            renderItem={({ item }) => (
+              <Swipeable
+                name={item.properties.title}
+                onSwipe={() => {
+                  navigation.navigate("Details", {
+                    title: item.properties.title,
+                    episode: item.properties.episode_id,
+                    director: item.properties.director,
+                    producer: item.properties.producer,
+                    releaseDate: item.properties.release_date,
+                  });
+                }}
+              />
+            )}
+          />
+        ) : (
+          <View style={styles.screen}>
+            <View style={styles.container}>
+              <ActivityIndicator size="large" animating={loading} />
+            </View>
           </View>
-        </View>
-      )}
-    </View>
+        )}
+      </View>
+    </KeyboardAwareScrollView>
   );
 }

@@ -7,13 +7,13 @@ export default function Details({ route }) {
   const navigation = useNavigation();
   if (!route.params) {
     return (
-      <View style={styles.detailsScreen}>
+      <View style={styles.screen}>
         <Text style={styles.detailsHeader}>No Film Selected</Text>
       </View>
     );
   }
   return (
-    <View style={styles.detailsScreen}>
+    <View style={styles.screen}>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <View style={{ alignItems: "center" }}>

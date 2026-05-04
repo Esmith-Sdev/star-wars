@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import styles from "../styles";
 import Animated, {
   SlideInLeft,
