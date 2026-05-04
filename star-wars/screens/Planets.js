@@ -74,9 +74,13 @@ export default function Planets() {
         />
         {!loading ? (
           <FlatList
-            keyboardShouldPersistTaps="handled"
             data={filteredPlanets}
             style={styles.list}
+            ListEmptyComponent={
+              !loading && changedText ? (
+                <Text style={{ textAlign: "center" }}>No Results Found</Text>
+              ) : null
+            }
             keyExtractor={(item) => item.uid}
             renderItem={({ item }) => (
               <Swipeable

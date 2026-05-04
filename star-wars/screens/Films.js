@@ -40,6 +40,7 @@ export default function Films() {
       .toLowerCase()
       .includes((changedText || "").toLowerCase()),
   );
+
   return (
     <KeyboardAwareScrollView
       style={{ flex: 1 }}
@@ -78,6 +79,11 @@ export default function Films() {
           <FlatList
             data={filteredFilms}
             style={styles.list}
+            ListEmptyComponent={
+              !loading && changedText ? (
+                <Text style={{ textAlign: "center" }}>No Results Found</Text>
+              ) : null
+            }
             keyExtractor={(item) => item.uid}
             renderItem={({ item }) => (
               <Swipeable

@@ -66,18 +66,9 @@ export default StyleSheet.create({
     borderWidth: 2,
     paddingVertical: 5,
     paddingHorizontal: 35,
+    minWidth: 300,
   },
 
-  planetBox: {
-    height: 100,
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: "#080808",
-    backgroundColor: "#e5703d",
-  },
   boxImage: {
     width: "100%",
     height: "auto",

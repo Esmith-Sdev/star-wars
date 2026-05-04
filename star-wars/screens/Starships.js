@@ -74,6 +74,11 @@ export default function Starships() {
             data={filteredStarships}
             style={styles.list}
             keyExtractor={(item) => item.uid}
+            ListEmptyComponent={
+              !loading && changedText ? (
+                <Text style={{ textAlign: "center" }}>No Results Found</Text>
+              ) : null
+            }
             renderItem={({ item }) => (
               <Swipeable
                 name={item.name}
